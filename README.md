@@ -1,4 +1,4 @@
-# Around the U.S.
+# WTWR (What to Wear)
 
 A front-end development project completed for the Software Engineering program at TripleTen. This application reads weather data from a weather API and recommends clothing options based on the data received.
 
