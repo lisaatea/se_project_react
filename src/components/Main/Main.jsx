@@ -5,9 +5,9 @@ import { defaultClothingItems } from "../../utils/constants";
 
 function Main({ weatherData, handleCardClick }) {
   return (
-    <main>
+    <main className="cards">
       <WeatherCard weatherData={weatherData} />
-      <section className="cards">
+      <section className="cards__section">
         <p className="cards__text">
           Today is {weatherData.temp.F}&deg; F / You may want to wear:
         </p>

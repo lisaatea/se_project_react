@@ -1,4 +1,8 @@
 .cards {
+  min-height: 100vh;
+}
+
+.cards__section {
   padding-top: 40px;
 }
 
