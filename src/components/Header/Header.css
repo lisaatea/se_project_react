@@ -5,6 +5,11 @@
   font-family: "Cabinet Grotesk-Bold";
 }
 
+.header__logo-container {
+  display: flex;
+  align-items: center;
+}
+
 .header__logo {
   margin-right: 24px;
 }
@@ -26,6 +31,11 @@
 
 .header__add-clothes-btn:hover {
   cursor: pointer;
+}
+
+.header__link {
+  text-decoration: none;
+  color: #000;
 }
 
 .header__user-container {

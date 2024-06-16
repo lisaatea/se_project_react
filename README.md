@@ -11,10 +11,6 @@ A front-end development project completed for the Software Engineering program a
 
 ![project fullscreen image](./src/assets/wtwr-main.png)
 
-## Links
-
-[GitHub pages](https://lisaatea.github.io/se_project_react/)
-
 ## Project updates
 
 This project will be built upon as the program progresses, incorporating course learnings to increase functionality with the eventual goal of creating a full-stack application.

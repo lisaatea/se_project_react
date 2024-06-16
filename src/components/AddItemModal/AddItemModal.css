@@ -1,0 +1,46 @@
+.modal__input {
+  display: block;
+  padding: 0 0 4px 0;
+  margin: 8px 0px 24px 0px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #000;
+}
+
+.modal__input::placeholder {
+  color: #00000080;
+}
+
+.modal__error-name {
+  color: #ff4d00;
+}
+
+.modal__error-url {
+  color: #ff4d00;
+}
+
+.modal__radio-btns {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0 0 32px 0;
+  border: none;
+  gap: 8px;
+}
+
+.modal__legend {
+  margin: 0 0 12px 0;
+}
+
+.modal__text-radio {
+  margin-left: 8px;
+  color: #00000080;
+}
+
+.modal__radio-input {
+  accent-color: #000;
+}
+
+input[type="radio"]:checked + span {
+  color: #000;
+}

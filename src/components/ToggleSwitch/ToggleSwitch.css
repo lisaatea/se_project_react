@@ -1,0 +1,67 @@
+.switch__container {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.switch {
+  display: flex;
+  position: relative;
+  cursor: pointer;
+}
+
+.switch__box {
+  border-radius: 25px;
+  border: 2px solid #7e7e7e;
+  width: 56px;
+  height: 28px;
+  appearance: none;
+}
+
+.switch:hover .switch__box {
+  border-color: #000;
+  cursor: pointer;
+}
+
+.switch__slider {
+  border-radius: 20px;
+  width: 28px;
+  height: 28px;
+  background-color: #000;
+  text-align: center;
+  position: absolute;
+  transition: left 0.1s ease;
+}
+
+.switch__slider-F {
+  left: 0;
+}
+
+.switch__slider-C {
+  left: 27px;
+}
+
+.switch__temp-F {
+  position: absolute;
+  color: #00000080;
+  font-size: 14px;
+  top: -8px;
+  left: 11px;
+}
+
+.switch__temp-C {
+  position: absolute;
+  color: #00000080;
+  font-size: 14px;
+  top: -8px;
+  left: 35px;
+}
+
+.switch__active {
+  color: white;
+  font-size: 14px;
+}
+
+.switch:hover .switch__temp-F:not(.switch__active),
+.switch:hover .switch__temp-C:not(.switch__active) {
+  color: #000;
+}

@@ -19,9 +19,11 @@
 }
 
 .card__image {
-  width: 100%;
+  width: 325px;
+  height: 326px;
   border: 1px solid #0000004d;
   border-radius: 19px;
+  object-fit: cover;
 }
 
 .card__image:hover {

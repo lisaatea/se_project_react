@@ -56,52 +56,25 @@
   width: 100%;
 }
 
-.modal__input {
-  display: block;
-  padding: 0 0 4px 0;
-  margin: 8px 0px 24px 0px;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #000;
-}
-
-.modal__input::placeholder {
-  color: #00000080;
-}
-
-.modal__radio-btns {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: 0 0 32px 0;
-  border: none;
-  gap: 8px;
-}
-
-.modal__legend {
-  margin: 0 0 12px 0;
-}
-
-.modal__text-radio {
-  margin-left: 8px;
-  color: #00000080;
-}
-
-.modal__radio-input {
-  accent-color: #000;
-}
-
-input[type="radio"]:checked + span {
-  color: #000;
-}
-
 .modal__submit {
   width: 124px;
   height: 36px;
   padding: 8px 16px;
   cursor: pointer;
   color: #fff;
-  background-color: #0000004d;
+  background-color: #000;
   border: none;
   border-radius: 4px;
+}
+
+.modal__submit:hover {
+  background-color: #00000099;
+}
+
+.modal__submit_inactive {
+  background-color: #0000004d;
+}
+.modal__submit_inactive:hover {
+  background-color: #0000004d;
+  cursor: default;
 }
