@@ -16,14 +16,14 @@ function DeleteConfirmationModal({ activeModal, onClose, onDelete }) {
         </p>
         <div className="delete-modal__button-box">
           <button
-            type="submit"
+            type="button"
             className="delete-modal__btn-delete"
             onClick={onDelete}
           >
             Yes, delete item
           </button>
           <button
-            type="submit"
+            type="button"
             className="delete-modal__btn-cancel"
             onClick={onClose}
           >
