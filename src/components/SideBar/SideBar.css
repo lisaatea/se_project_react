@@ -1,12 +1,14 @@
-.sidebar {
+.sidebar__user-container {
   display: flex;
   align-items: center;
   gap: 16px;
+  padding-bottom: 24px;
 }
 
 .sidebar__avatar {
   width: 56px;
   height: 56px;
+  border-radius: 50%;
 }
 
 .sidebar__username {
@@ -14,4 +16,25 @@
   font-size: 20px;
   line-height: 1.2;
   margin: 0;
+}
+
+.sidebar__button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.sidebar__button {
+  font-family: "Cabinet Grotesk-Bold";
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size: 20px;
+  line-height: 1.2;
+  background-color: transparent;
+}
+
+.sidebar__button:hover {
+  cursor: pointer;
 }

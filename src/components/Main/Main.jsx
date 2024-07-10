@@ -6,14 +6,13 @@ import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperature
 
 function Main({ weatherData, handleCardClick, clothingItems }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-
   return (
     <main className="cards">
       <WeatherCard weatherData={weatherData} />
       <section className="cards__section">
         <p className="cards__text">
-          Today is {weatherData.temp[currentTemperatureUnit]} / You may want to
-          wear:
+          Today is {weatherData.temp[currentTemperatureUnit]}&deg;
+          {currentTemperatureUnit} / You may want to wear:
         </p>
         <ul className="cards__list">
           {clothingItems

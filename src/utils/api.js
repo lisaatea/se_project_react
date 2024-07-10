@@ -14,14 +14,14 @@ function getItems() {
   return fetch(`${baseUrl}/items`)
     .then(processServerResponse)
     .then((items) => {
-      return items.sort((a, b) => b._id - a._id);
+      return items;
     });
 }
 
-function addItem(data) {
+function addItem(data, token) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
-    headers: headers,
+    headers: { ...headers, authorization: `Bearer ${token}` },
     body: JSON.stringify({
       name: data.name,
       imageUrl: data.imageUrl,
@@ -30,11 +30,19 @@ function addItem(data) {
   }).then(processServerResponse);
 }
 
-function deleteItem(itemId) {
+function deleteItem(itemId, token) {
   return fetch(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
-    headers: headers,
+    headers: { ...headers, authorization: `Bearer ${token}` },
   }).then(processServerResponse);
 }
 
-export { getItems, addItem, deleteItem, processServerResponse };
+function editUser(data, token) {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: { ...headers, authorization: `Bearer ${token}` },
+    body: JSON.stringify(data),
+  }).then(processServerResponse);
+}
+
+export { getItems, addItem, deleteItem, editUser, processServerResponse };

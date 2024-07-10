@@ -55,4 +55,9 @@
   padding: 0;
   color: #ff4d00;
   cursor: pointer;
+  visibility: visible;
+}
+
+.item-modal__btn-delete_hidden {
+  visibility: hidden;
 }
