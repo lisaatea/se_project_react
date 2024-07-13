@@ -8,9 +8,9 @@ function Profile({
   handleCardClick,
   clothingItems,
   handleAddClick,
-  userData,
   handleLogout,
   handleProfileEditClick,
+  handleCardLike,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -18,7 +18,7 @@ function Profile({
     <div className="profile">
       <section className="profile__sidebar">
         <SideBar
-          userData={userData}
+          currentUser={currentUser}
           handleLogout={handleLogout}
           handleProfileEditClick={handleProfileEditClick}
         />
@@ -29,6 +29,7 @@ function Profile({
           clothingItems={clothingItems}
           handleAddClick={handleAddClick}
           currentUser={currentUser}
+          handleCardLike={handleCardLike}
         />
       </section>
     </div>

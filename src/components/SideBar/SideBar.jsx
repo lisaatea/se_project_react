@@ -1,13 +1,26 @@
 import "./SideBar.css";
 
-import avatar from "../../assets/avatar.svg";
+function SideBar({ currentUser, handleLogout, handleProfileEditClick }) {
+  const renderAvatar = () => {
+    if (currentUser.avatar) {
+      return (
+        <img
+          src={currentUser.avatar}
+          alt="avatar"
+          className="sidebar__avatar"
+        />
+      );
+    } else {
+      const initial = currentUser.name.trim().charAt(0).toUpperCase();
+      return <div className="sidebar__avatar-placeholder">{initial}</div>;
+    }
+  };
 
-function SideBar({ userData, handleLogout, handleProfileEditClick }) {
   return (
     <>
       <div className="sidebar__user-container ">
-        <img src={userData.avatar} alt="avatar" className="sidebar__avatar" />
-        <p className="sidebar__username">{userData.name}</p>
+        {renderAvatar()}
+        <p className="sidebar__username">{currentUser.name}</p>
       </div>
       <div className="sidebar__button-container">
         <button

@@ -10,7 +10,14 @@ import Main from "../Main/Main";
 import ItemModal from "../ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
-import { getItems, addItem, deleteItem, editUser } from "../../utils/api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  editUser,
+  addCardLike,
+  removeCardLike,
+} from "../../utils/api";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
@@ -31,11 +38,13 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
+    _id: "",
     name: "",
     avatar: "",
     email: "",
     password: "",
   });
+
   const [token, setToken] = useState(localStorage.getItem("jwt"));
   const navigate = useNavigate();
 
@@ -75,11 +84,15 @@ function App() {
 
   const handleAddItemSubmit = (newItem) => {
     addItem(newItem, token)
-      .then((res) => {
-        setClothingItems((prevItems) => [res.data, ...prevItems]);
+      .then(() => {
+        getItems().then((items) => {
+          setClothingItems(items);
+        });
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleDeleteItem = (itemId) => {
@@ -90,7 +103,9 @@ function App() {
         );
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleEditProfile = ({ name, avatar }) => {
@@ -99,19 +114,22 @@ function App() {
         setUserData({ ...userData, name, avatar });
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleRegistration = ({ name, avatar, email, password }) => {
     auth
       .signup(name, avatar, email, password)
       .then(() => {
+        console.log("registration successful");
         closeActiveModal();
         navigate("/profile");
-        //remove before submitting:
-        alert("registration successful");
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleLogin = ({ email, password }) => {
@@ -121,21 +139,20 @@ function App() {
     auth
       .signin(email, password)
       .then((data) => {
+        localStorage.setItem("jwt", data.token);
+        setIsLoggedIn(true);
+        setUserData({
+          _id: data.id,
+          name: data.name,
+          avatar: data.avatar,
+          email: data.email,
+        });
         closeActiveModal();
-        if (data.token) {
-          localStorage.setItem("jwt", data.token);
-          setToken(data.token);
-          setIsLoggedIn(true);
-          setUserData({
-            _id: data.id,
-            name: data.name,
-            avatar: data.avatar,
-            email: data.email,
-          });
-          navigate("/profile");
-        }
+        navigate("/profile");
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleLogout = () => {
@@ -143,19 +160,33 @@ function App() {
     setToken(null);
     setIsLoggedIn(false);
     setUserData({
+      _id: "",
       name: "",
       avatar: "",
       email: "",
       password: "",
     });
-    navigate("/");
+    navigate("/").catch((err) => {
+      console.error(err);
+    });
+  };
+
+  const handleCardLike = ({ _id, likes }) => {
+    const isLiked = likes.some((like) => like === userData._id);
+    const likeOperation = !isLiked ? addCardLike : removeCardLike;
+    likeOperation(_id, token)
+      .then((updatedItem) => {
+        setClothingItems((items) =>
+          items.map((item) => (item._id === _id ? updatedItem : item))
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   function ProtectedRoute({ isLoggedIn, children }) {
-    if (!isLoggedIn) {
-      return <Navigate to="/" replace />;
-    }
-    return children;
+    return isLoggedIn ? children : <Navigate to="/" replace />;
   }
 
   useEffect(() => {
@@ -163,10 +194,11 @@ function App() {
       auth
         .checkTokenValidity(token)
         .then(() => {
+          setToken(token);
           setIsLoggedIn(true);
         })
-        .catch((error) => {
-          console.error("Error while checking token validity:", error);
+        .catch((err) => {
+          console.error(err);
           localStorage.removeItem("jwt");
           setToken(null);
           setIsLoggedIn(false);
@@ -181,8 +213,8 @@ function App() {
         setWeatherData(filteredWeatherData);
         setClothingItems(itemsData);
       })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+      .catch((err) => {
+        console.error(err);
       });
   }, []);
 
@@ -207,6 +239,7 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    handleCardLike={handleCardLike}
                   />
                 }
               />
@@ -218,9 +251,9 @@ function App() {
                       handleCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
-                      userData={userData}
                       handleLogout={handleLogout}
                       handleProfileEditClick={handleProfileEditClick}
+                      handleCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }

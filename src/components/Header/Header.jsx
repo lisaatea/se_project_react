@@ -18,6 +18,21 @@ function Header({
 
   const currentUser = useContext(CurrentUserContext);
 
+  const renderAvatar = () => {
+    if (currentUser.avatar) {
+      return (
+        <img
+          src={currentUser.avatar}
+          alt="avatar"
+          className="header__avatar "
+        />
+      );
+    } else {
+      const initial = currentUser.name.trim().charAt(0).toUpperCase();
+      return <div className="header__avatar-placeholder">{initial}</div>;
+    }
+  };
+
   return (
     <header className="header">
       <div className="header__logo-container">
@@ -44,11 +59,7 @@ function Header({
           <Link to="/profile" className="header__link">
             <div className="header__user-container">
               <p className="header__username">{currentUser.name}</p>
-              <img
-                src={currentUser.avatar}
-                alt="avatar"
-                className="header__avatar"
-              />
+              {renderAvatar()}
             </div>
           </Link>
         </>

@@ -6,6 +6,7 @@ function ClothesSection({
   clothingItems,
   handleAddClick,
   currentUser,
+  handleCardLike,
 }) {
   const filteredClothingItems = clothingItems.filter(
     (item) => item.owner._id === currentUser._id
@@ -29,6 +30,8 @@ function ClothesSection({
               key={item._id}
               item={item}
               onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              currentUser={currentUser}
             />
           );
         })}

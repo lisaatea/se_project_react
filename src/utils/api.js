@@ -45,4 +45,26 @@ function editUser(data, token) {
   }).then(processServerResponse);
 }
 
-export { getItems, addItem, deleteItem, editUser, processServerResponse };
+function addCardLike(itemId, token) {
+  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+    method: "PUT",
+    headers: { ...headers, authorization: `Bearer ${token}` },
+  }).then(processServerResponse);
+}
+
+function removeCardLike(itemId, token) {
+  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+    method: "DELETE",
+    headers: { ...headers, authorization: `Bearer ${token}` },
+  }).then(processServerResponse);
+}
+
+export {
+  getItems,
+  addItem,
+  deleteItem,
+  editUser,
+  addCardLike,
+  removeCardLike,
+  processServerResponse,
+};

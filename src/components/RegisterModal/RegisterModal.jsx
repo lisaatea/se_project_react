@@ -71,7 +71,7 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
         />
       </label>
       <label htmlFor="avatar" className="modal__label">
-        Avatar URL*
+        Avatar URL
         <span></span>
         <input
           type="url"
@@ -80,7 +80,6 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
           value={data.avatar}
           onChange={handleChange}
           placeholder="Avatar URL"
-          required
         />
       </label>
     </ModalWithForm>
