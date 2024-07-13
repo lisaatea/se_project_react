@@ -122,8 +122,15 @@ function App() {
   const handleRegistration = ({ name, avatar, email, password }) => {
     auth
       .signup(name, avatar, email, password)
-      .then(() => {
-        console.log("registration successful");
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
+        setIsLoggedIn(true);
+        setUserData({
+          _id: data.id,
+          name: data.name,
+          avatar: data.avatar,
+          email: data.email,
+        });
         closeActiveModal();
         navigate("/profile");
       })
