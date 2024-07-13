@@ -11,13 +11,13 @@
   color: #00000080;
 }
 
-.modal__error-name {
+/* .modal__error-name {
   color: #ff4d00;
 }
 
 .modal__error-url {
   color: #ff4d00;
-}
+} */
 
 .modal__radio-btns {
   display: flex;

@@ -1,24 +1,22 @@
-import { useState } from "react";
 import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { useFormAndValidation } from "../../hooks/useFormandValidation";
 
 const EditProfileModal = ({ isOpen, onEditProfile, onClose }) => {
-  const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
-
-  const handleEditName = (e) => {
-    const value = e.target.value;
-    setName(value);
-  };
-
-  const handleEditAvatar = (e) => {
-    const value = e.target.value;
-    setAvatar(value);
-  };
+  const { values, handleChange, isValid, resetForm, errors } =
+    useFormAndValidation({
+      name: "",
+      email: "",
+      avatar: "",
+      password: "",
+    });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onEditProfile({ name, avatar });
+    if (isValid) {
+      onEditProfile({ name: values.name, avatar: values.avatar });
+      resetForm();
+    }
   };
 
   return (
@@ -28,32 +26,33 @@ const EditProfileModal = ({ isOpen, onEditProfile, onClose }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isFormValid={isValid}
+      isButtonDisabled={!isValid}
       className="modal__submit-edit-profile"
     >
       <label htmlFor="name" className="modal__label">
         Name*
-        <span></span>
+        <span className="modal__error">{errors.name}</span>
         <input
           type="text"
           className="modal__input"
           name="name"
-          value={name}
-          onChange={handleEditName}
+          value={values.name}
+          onChange={handleChange}
           placeholder="Name"
           required
         />
       </label>
       <label htmlFor="avatar" className="modal__label">
-        Avatar URL*
-        <span></span>
+        Avatar URL
+        <span className="modal__error">{errors.avatar}</span>
         <input
           type="url"
           className="modal__input"
           name="avatar"
-          value={avatar}
-          onChange={handleEditAvatar}
+          value={values.avatar}
+          onChange={handleChange}
           placeholder="Avatar URL"
-          required
         />
       </label>
     </ModalWithForm>

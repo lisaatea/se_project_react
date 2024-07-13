@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import { coordinates, APIkey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
@@ -24,6 +24,7 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import * as auth from "../../utils/auth";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -126,7 +127,7 @@ function App() {
         localStorage.setItem("jwt", data.token);
         setIsLoggedIn(true);
         setUserData({
-          _id: data.id,
+          _id: data._id,
           name: data.name,
           avatar: data.avatar,
           email: data.email,
@@ -149,7 +150,7 @@ function App() {
         localStorage.setItem("jwt", data.token);
         setIsLoggedIn(true);
         setUserData({
-          _id: data.id,
+          _id: data._id,
           name: data.name,
           avatar: data.avatar,
           email: data.email,
@@ -171,11 +172,8 @@ function App() {
       name: "",
       avatar: "",
       email: "",
-      password: "",
     });
-    navigate("/").catch((err) => {
-      console.error(err);
-    });
+    navigate("/");
   };
 
   const handleCardLike = ({ _id, likes }) => {
@@ -192,15 +190,17 @@ function App() {
       });
   };
 
-  function ProtectedRoute({ isLoggedIn, children }) {
-    return isLoggedIn ? children : <Navigate to="/" replace />;
-  }
-
   useEffect(() => {
     if (token) {
       auth
         .checkTokenValidity(token)
-        .then(() => {
+        .then((data) => {
+          setUserData({
+            _id: data._id,
+            name: data.name,
+            avatar: data.avatar,
+            email: data.email,
+          });
           setToken(token);
           setIsLoggedIn(true);
         })

@@ -1,26 +1,22 @@
-import { useState } from "react";
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { useFormAndValidation } from "../../hooks/useFormandValidation";
 
 const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
-  const [data, setData] = useState({
-    name: "",
-    avatar: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const { values, handleChange, isValid, resetForm, errors } =
+    useFormAndValidation({
+      name: "",
+      avatar: "",
+      email: "",
+      password: "",
+    });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegistration(data);
+    if (isValid) {
+      handleRegistration(values);
+      resetForm();
+    }
   };
 
   return (
@@ -30,15 +26,17 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isFormValid={{ isValid }}
+      isButtonDisabled={!isValid}
     >
       <label htmlFor="email" className="modal__label">
         Email*
-        <span></span>
+        <span className="modal__error">{errors.email}</span>
         <input
           type="email"
           className="modal__input"
           name="email"
-          value={data.email}
+          value={values.email}
           onChange={handleChange}
           placeholder="Email"
           required
@@ -46,12 +44,12 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
       </label>
       <label htmlFor="password" className="modal__label">
         Password*
-        <span></span>
+        <span className="modal__error">{errors.password}</span>
         <input
           type="password"
           className="modal__input"
           name="password"
-          value={data.password}
+          value={values.password}
           onChange={handleChange}
           placeholder="Password"
           required
@@ -59,12 +57,12 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
       </label>
       <label htmlFor="name" className="modal__label">
         Name*
-        <span></span>
+        <span className="modal__error">{errors.name}</span>
         <input
           type="text"
           className="modal__input"
           name="name"
-          value={data.name}
+          value={values.name}
           onChange={handleChange}
           placeholder="Name"
           required
@@ -72,12 +70,12 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
       </label>
       <label htmlFor="avatar" className="modal__label">
         Avatar URL
-        <span></span>
+        <span className="modal__error">{errors.avatar}</span>
         <input
           type="url"
           className="modal__input"
           name="avatar"
-          value={data.avatar}
+          value={values.avatar}
           onChange={handleChange}
           placeholder="Avatar URL"
         />

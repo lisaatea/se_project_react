@@ -1,69 +1,23 @@
 import { useState, useEffect } from "react";
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { useFormAndValidation } from "../../hooks/useFormandValidation";
 
 const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
-  const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [weather, setWeather] = useState("");
-  const [nameError, setNameError] = useState("");
-  const [imageUrlError, setImageUrlError] = useState("");
-  const [nameIsValid, setNameIsValid] = useState(false);
-  const [imageUrlIsValid, setImageUrlIsValid] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const { values, handleChange, isValid, resetForm, errors } =
+    useFormAndValidation({
+      name: "",
+      imageUrl: "",
+      weather: "",
+    });
 
-  useEffect(() => {
-    if (isOpen) {
-      setName("");
-      setImageUrl("");
-      setWeather("");
-      setNameError("");
-      setImageUrlError("");
-      setNameIsValid(false);
-      setImageUrlIsValid(false);
-    }
-  }, [isOpen]);
-
-  const handleNameChange = (e) => {
-    const value = e.target.value;
-    setName(value);
-    if (value.trim() === "") {
-      setNameError(" (name is required)");
-      setNameIsValid(false);
-    } else {
-      setNameError("");
-      setNameIsValid(true);
-    }
-  };
-
-  const handleImageUrlChange = (e) => {
-    const value = e.target.value;
-    setImageUrl(value);
-    const urlVerify = /^[^ "]+\.[^ "]+$/;
-    if (!urlVerify.test(value)) {
-      setImageUrlError(" (this is not a valid link)");
-      setImageUrlIsValid(false);
-    } else {
-      setImageUrlError("");
-      setImageUrlIsValid(true);
-    }
-  };
-
-  const handleWeatherChange = (e) => {
-    setWeather(e.target.value);
-  };
-
-  useEffect(() => {
-    setIsFormValid(nameIsValid && imageUrlIsValid);
-    setIsButtonDisabled(!(nameIsValid && imageUrlIsValid));
-  }, [nameIsValid, imageUrlIsValid]);
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const newItem = { name, imageUrl, weather };
-    onAddItem(newItem);
-  }
+    if (isValid) {
+      onAddItem(values);
+      resetForm();
+    }
+  };
 
   return (
     <ModalWithForm
@@ -72,17 +26,17 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isFormValid={isFormValid}
-      isButtonDisabled={isButtonDisabled}
+      isFormValid={isValid}
+      isButtonDisabled={!isValid}
     >
       <label htmlFor="name" className="modal__label">
-        Name* {""} <span className="modal__error-name">{nameError}</span>
+        Name* <span className="modal__error">{errors.name}</span>
         <input
           type="text"
           className="modal__input"
           id="name"
-          value={name}
-          onChange={handleNameChange}
+          value={values.name}
+          onChange={handleChange}
           placeholder="Name"
           minLength="1"
           maxLength="30"
@@ -90,14 +44,14 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
         />
       </label>
       <label htmlFor="imageUrl" className="modal__label">
-        Image* {""}
-        <span className="modal__error-url">{imageUrlError}</span>
+        Image*
+        <span className="modal__error">{errors.imageUrl}</span>
         <input
           type="url"
           className="modal__input"
           id="imageUrl"
-          value={imageUrl}
-          onChange={handleImageUrlChange}
+          value={values.imageUrl}
+          onChange={handleChange}
           placeholder="Image URL"
           required
         />
@@ -111,8 +65,8 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
             name="weather"
             id="hot"
             value="hot"
-            checked={weather === "hot"}
-            onChange={handleWeatherChange}
+            checked={values.weather === "hot"}
+            onChange={handleChange}
           />
           <span className="modal__text-radio">Hot</span>
         </label>
@@ -123,8 +77,8 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
             name="weather"
             id="warm"
             value="warm"
-            checked={weather === "warm"}
-            onChange={handleWeatherChange}
+            checked={values.weather === "warm"}
+            onChange={handleChange}
           />
           <span className="modal__text-radio">Warm</span>
         </label>
@@ -135,8 +89,8 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
             name="weather"
             id="cold"
             value="cold"
-            checked={weather === "cold"}
-            onChange={handleWeatherChange}
+            checked={values.weather === "cold"}
+            onChange={handleChange}
           />
           <span className="modal__text-radio">Cold</span>
         </label>

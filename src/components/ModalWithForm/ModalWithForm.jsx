@@ -7,7 +7,6 @@ function ModalWithForm({
   isOpen,
   onClose,
   onSubmit,
-  isFormValid,
   isButtonDisabled,
   className,
 }) {
