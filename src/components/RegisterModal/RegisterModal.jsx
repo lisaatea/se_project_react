@@ -2,7 +2,7 @@ import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormandValidation";
 
-const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
+const RegisterModal = ({ isOpen, handleRegistration, onClose, onToggle }) => {
   const { values, handleChange, isValid, resetForm, errors } =
     useFormAndValidation({
       name: "",
@@ -22,7 +22,7 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
   return (
     <ModalWithForm
       title="Sign up"
-      buttonText="Next"
+      buttonText="Sign up"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
@@ -80,6 +80,10 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose }) => {
           placeholder="Avatar URL"
         />
       </label>
+      <button className="register-modal__toggle" onClick={onToggle}>
+        {" "}
+        or Log In
+      </button>
     </ModalWithForm>
   );
 };

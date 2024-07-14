@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormandValidation";
@@ -35,6 +34,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
           type="text"
           className="modal__input"
           id="name"
+          name="name"
           value={values.name}
           onChange={handleChange}
           placeholder="Name"
@@ -50,6 +50,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
           type="url"
           className="modal__input"
           id="imageUrl"
+          name="imageUrl"
           value={values.imageUrl}
           onChange={handleChange}
           placeholder="Image URL"

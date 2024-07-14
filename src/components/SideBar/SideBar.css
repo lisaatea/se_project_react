@@ -6,8 +6,8 @@
 }
 
 .sidebar__avatar {
-  width: 56px;
-  height: 56px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 
@@ -21,6 +21,9 @@
   border: 1px solid #00000080;
   font-family: "Cabinet Grotesk-Bold";
   font-size: 20px;
+  line-height: 1.2;
+  color: #fff;
+  background-color: #00000033;
 }
 
 .sidebar__username {

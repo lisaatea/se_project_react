@@ -24,7 +24,7 @@ function ModalWithForm({
           type="button"
           className="modal__close-btn_type_form"
         />
-        <form className={`"modal__form" ${className}`} onSubmit={handleSubmit}>
+        <form className={`modal__form ${className}`} onSubmit={handleSubmit}>
           {children}
           <button
             type="submit"

@@ -2,7 +2,7 @@ import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormandValidation";
 
-const LoginModal = ({ isOpen, handleLogin, onClose }) => {
+const LoginModal = ({ isOpen, handleLogin, onClose, onToggle }) => {
   const { values, handleChange, isValid, resetForm, errors } =
     useFormAndValidation({
       email: "",
@@ -53,6 +53,10 @@ const LoginModal = ({ isOpen, handleLogin, onClose }) => {
           required
         />
       </label>
+      <button className="login-modal__toggle" onClick={onToggle}>
+        {" "}
+        or Sign Up
+      </button>
     </ModalWithForm>
   );
 };

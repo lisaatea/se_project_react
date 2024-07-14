@@ -47,7 +47,16 @@ function App() {
   });
 
   const [token, setToken] = useState(localStorage.getItem("jwt"));
+
   const navigate = useNavigate();
+
+  const toggletoRegister = () => {
+    setActiveModal("register");
+  };
+
+  const toggletoLogin = () => {
+    setActiveModal("login");
+  };
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -201,7 +210,6 @@ function App() {
             avatar: data.avatar,
             email: data.email,
           });
-          setToken(token);
           setIsLoggedIn(true);
         })
         .catch((err) => {
@@ -211,7 +219,7 @@ function App() {
           setIsLoggedIn(false);
         });
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     Promise.all([getWeather(coordinates, APIkey), getItems()])
@@ -288,11 +296,13 @@ function App() {
             isOpen={activeModal === "register"}
             handleRegistration={handleRegistration}
             onClose={closeActiveModal}
+            onToggle={toggletoLogin}
           />
           <LoginModal
             isOpen={activeModal === "login"}
             handleLogin={handleLogin}
             onClose={closeActiveModal}
+            onToggle={toggletoRegister}
           />
           <EditProfileModal
             isOpen={activeModal === "edit-profile"}
