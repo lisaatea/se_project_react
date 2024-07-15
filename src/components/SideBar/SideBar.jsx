@@ -1,6 +1,9 @@
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./SideBar.css";
 
-function SideBar({ currentUser, handleLogout, handleProfileEditClick }) {
+function SideBar({ handleLogout, handleProfileEditClick }) {
+  const currentUser = useContext(CurrentUserContext);
   const renderAvatar = () => {
     if (currentUser.avatar) {
       return (

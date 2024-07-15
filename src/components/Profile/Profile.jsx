@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./Profile.css";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
@@ -12,13 +10,10 @@ function Profile({
   handleProfileEditClick,
   handleCardLike,
 }) {
-  const currentUser = useContext(CurrentUserContext);
-
   return (
     <div className="profile">
       <section className="profile__sidebar">
         <SideBar
-          currentUser={currentUser}
           handleLogout={handleLogout}
           handleProfileEditClick={handleProfileEditClick}
         />
@@ -28,7 +23,6 @@ function Profile({
           handleCardClick={handleCardClick}
           clothingItems={clothingItems}
           handleAddClick={handleAddClick}
-          currentUser={currentUser}
           handleCardLike={handleCardLike}
         />
       </section>

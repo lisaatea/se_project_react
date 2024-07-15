@@ -21,6 +21,9 @@ export function useFormAndValidation(initialValues) {
       case "password":
         validatePassword(value);
         break;
+      case "imageUrl":
+        validateImageUrl(value);
+        break;
       default:
         break;
     }
@@ -46,14 +49,13 @@ export function useFormAndValidation(initialValues) {
 
   const validateAvatar = (value) => {
     if (value.trim() !== "") {
-      const isValidUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(value);
-      if (!isValidUrl) {
-        setErrors({ ...errors, avatar: "(Valid URL required)" });
-      } else {
-        setErrors({ ...errors, avatar: "" });
-      }
-    } else {
       setErrors({ ...errors, avatar: "" });
+    } else {
+      const isValidUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(value);
+      setErrors({
+        ...errors,
+        avatar: isValidUrl ? "" : "(Valid URL required)",
+      });
     }
   };
 
@@ -62,6 +64,18 @@ export function useFormAndValidation(initialValues) {
       setErrors({ ...errors, password: "(Password is required)" });
     } else {
       setErrors({ ...errors, password: "" });
+    }
+  };
+
+  const validateImageUrl = (value) => {
+    if (value.trim() === "") {
+      setErrors({ ...errors, imageUrl: "(Valid URL required" });
+    } else {
+      const isValidUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(value);
+      setErrors({
+        ...errors,
+        imageUrl: isValidUrl ? "" : "(Valid URL required)",
+      });
     }
   };
 

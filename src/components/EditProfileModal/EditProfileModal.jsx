@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormandValidation";
@@ -6,16 +7,19 @@ const EditProfileModal = ({ isOpen, onEditProfile, onClose }) => {
   const { values, handleChange, isValid, resetForm, errors } =
     useFormAndValidation({
       name: "",
-      email: "",
       avatar: "",
-      password: "",
     });
+
+  useEffect(() => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
       onEditProfile({ name: values.name, avatar: values.avatar });
-      resetForm();
     }
   };
 
@@ -35,6 +39,7 @@ const EditProfileModal = ({ isOpen, onEditProfile, onClose }) => {
         <span className="modal__error">{errors.name}</span>
         <input
           type="text"
+          id="name"
           className="modal__input"
           name="name"
           value={values.name}
@@ -48,6 +53,7 @@ const EditProfileModal = ({ isOpen, onEditProfile, onClose }) => {
         <span className="modal__error">{errors.avatar}</span>
         <input
           type="url"
+          id="avatar"
           className="modal__input"
           name="avatar"
           value={values.avatar}

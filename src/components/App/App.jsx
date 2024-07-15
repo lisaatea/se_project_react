@@ -37,10 +37,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    Boolean(localStorage.getItem("jwt"))
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
     _id: "",
     name: "",
@@ -103,9 +100,7 @@ function App() {
         });
         closeActiveModal();
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(console.error);
   };
 
   const handleDeleteItem = (itemId) => {
@@ -116,9 +111,7 @@ function App() {
         );
         closeActiveModal();
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(console.error);
   };
 
   const handleEditProfile = ({ name, avatar }) => {
@@ -127,32 +120,21 @@ function App() {
         setUserData({ ...userData, name, avatar });
         closeActiveModal();
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(console.error);
   };
 
   const handleRegistration = ({ name, avatar, email, password }) => {
     auth
       .signup(name, avatar, email, password)
       .then((data) => {
-        console.log("registration response:", data);
         localStorage.setItem("jwt", data.token);
-        console.log("token stored", localStorage.getItem("jwt"));
         setToken(data.token);
         setIsLoggedIn(true);
-        setUserData({
-          _id: data._id,
-          name: data.name,
-          avatar: data.avatar,
-          email: data.email,
-        });
+        setUserData(data);
         closeActiveModal();
         navigate("/profile");
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(console.error);
   };
 
   const handleLogin = ({ email, password }) => {
@@ -165,12 +147,7 @@ function App() {
         localStorage.setItem("jwt", data.token);
         setToken(data.token);
         setIsLoggedIn(true);
-        setUserData({
-          _id: data._id,
-          name: data.name,
-          avatar: data.avatar,
-          email: data.email,
-        });
+        setUserData(data);
         return getItems(data.token);
       })
       .then((items) => {
@@ -178,9 +155,7 @@ function App() {
         closeActiveModal();
         navigate("/profile");
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(console.error);
   };
 
   const handleLogout = () => {
@@ -205,9 +180,7 @@ function App() {
           items.map((item) => (item._id === _id ? updatedItem : item))
         );
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(console.error);
   };
 
   useEffect(() => {
@@ -215,12 +188,7 @@ function App() {
       auth
         .checkTokenValidity(token)
         .then((data) => {
-          setUserData({
-            _id: data._id,
-            name: data.name,
-            avatar: data.avatar,
-            email: data.email,
-          });
+          setUserData(data);
           setIsLoggedIn(true);
         })
         .catch((err) => {
@@ -239,9 +207,7 @@ function App() {
         setWeatherData(filteredWeatherData);
         setClothingItems(itemsData);
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(console.error);
   }, []);
 
   return (

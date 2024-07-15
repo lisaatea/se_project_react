@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormandValidation";
@@ -7,14 +8,18 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
     useFormAndValidation({
       name: "",
       imageUrl: "",
-      weather: "",
     });
+
+  useEffect(() => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
       onAddItem(values);
-      resetForm();
     }
   };
 

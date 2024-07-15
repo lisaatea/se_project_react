@@ -1,19 +1,25 @@
+import { useEffect } from "react";
 import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormandValidation";
 
 const LoginModal = ({ isOpen, handleLogin, onClose, onToggle }) => {
-  const { values, handleChange, isValid, resetForm, errors } =
+  const { values, handleChange, isValid, errors, resetForm } =
     useFormAndValidation({
       email: "",
       password: "",
     });
 
+  useEffect(() => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
       handleLogin(values);
-      resetForm();
     }
   };
 
@@ -32,6 +38,7 @@ const LoginModal = ({ isOpen, handleLogin, onClose, onToggle }) => {
         <span className="modal__error">{errors.email}</span>
         <input
           type="email"
+          id="email"
           className="modal__input"
           name="email"
           value={values.email}
@@ -45,6 +52,7 @@ const LoginModal = ({ isOpen, handleLogin, onClose, onToggle }) => {
         <span className="modal__error">{errors.password}</span>
         <input
           type="password"
+          id="password"
           className="modal__input"
           name="password"
           value={values.password}

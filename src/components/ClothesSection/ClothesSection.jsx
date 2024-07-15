@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
 
@@ -5,9 +7,9 @@ function ClothesSection({
   handleCardClick,
   clothingItems,
   handleAddClick,
-  currentUser,
   handleCardLike,
 }) {
+  const currentUser = useContext(CurrentUserContext);
   const filteredClothingItems = clothingItems.filter(
     (item) => item.owner._id === currentUser._id
   );
@@ -31,7 +33,6 @@ function ClothesSection({
               item={item}
               onCardClick={handleCardClick}
               onCardLike={handleCardLike}
-              currentUser={currentUser}
             />
           );
         })}
