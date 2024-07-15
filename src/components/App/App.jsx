@@ -37,7 +37,10 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    Boolean(localStorage.getItem("jwt"))
+  );
   const [userData, setUserData] = useState({
     _id: "",
     name: "",
@@ -133,7 +136,10 @@ function App() {
     auth
       .signup(name, avatar, email, password)
       .then((data) => {
+        console.log("registration response:", data);
         localStorage.setItem("jwt", data.token);
+        console.log("token stored", localStorage.getItem("jwt"));
+        setToken(data.token);
         setIsLoggedIn(true);
         setUserData({
           _id: data._id,
@@ -157,6 +163,7 @@ function App() {
       .signin(email, password)
       .then((data) => {
         localStorage.setItem("jwt", data.token);
+        setToken(data.token);
         setIsLoggedIn(true);
         setUserData({
           _id: data._id,
@@ -164,6 +171,10 @@ function App() {
           avatar: data.avatar,
           email: data.email,
         });
+        return getItems(data.token);
+      })
+      .then((items) => {
+        setClothingItems(items);
         closeActiveModal();
         navigate("/profile");
       })
