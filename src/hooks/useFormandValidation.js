@@ -91,5 +91,6 @@ export function useFormAndValidation(initialValues) {
     errors,
     isValid,
     resetForm,
+    setValues,
   };
 }

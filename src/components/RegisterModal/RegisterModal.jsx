@@ -35,12 +35,12 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose, onToggle }) => {
       isFormValid={{ isValid }}
       isButtonDisabled={!isValid}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="register-email" className="modal__label">
         Email*
         <span className="modal__error">{errors.email}</span>
         <input
           type="email"
-          id="email"
+          id="register-email"
           className="modal__input"
           name="email"
           value={values.email}
@@ -49,12 +49,12 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose, onToggle }) => {
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="register-password" className="modal__label">
         Password*
         <span className="modal__error">{errors.password}</span>
         <input
           type="password"
-          id="password"
+          id="register-password"
           className="modal__input"
           name="password"
           value={values.password}
@@ -63,12 +63,12 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose, onToggle }) => {
           required
         />
       </label>
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="register-name" className="modal__label">
         Name*
         <span className="modal__error">{errors.name}</span>
         <input
           type="text"
-          id="name"
+          id="register-name"
           className="modal__input"
           name="name"
           value={values.name}
@@ -77,12 +77,12 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose, onToggle }) => {
           required
         />
       </label>
-      <label htmlFor="avatar" className="modal__label">
+      <label htmlFor="register-avatar" className="modal__label">
         Avatar URL
         <span className="modal__error">{errors.avatar}</span>
         <input
           type="url"
-          id="avatar"
+          id="register-avatar"
           className="modal__input"
           name="avatar"
           value={values.avatar}

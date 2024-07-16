@@ -33,12 +33,12 @@ const LoginModal = ({ isOpen, handleLogin, onClose, onToggle }) => {
       isFormValid={isValid}
       isButtonDisabled={!isValid}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="login-email" className="modal__label">
         Email*
         <span className="modal__error">{errors.email}</span>
         <input
           type="email"
-          id="email"
+          id="login-email"
           className="modal__input"
           name="email"
           value={values.email}
@@ -47,12 +47,12 @@ const LoginModal = ({ isOpen, handleLogin, onClose, onToggle }) => {
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="login-password" className="modal__label">
         Password*
         <span className="modal__error">{errors.password}</span>
         <input
           type="password"
-          id="password"
+          id="login-password"
           className="modal__input"
           name="password"
           value={values.password}

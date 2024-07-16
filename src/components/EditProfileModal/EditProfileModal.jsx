@@ -1,20 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormandValidation";
 
 const EditProfileModal = ({ isOpen, onEditProfile, onClose }) => {
-  const { values, handleChange, isValid, resetForm, errors } =
+  const { values, handleChange, isValid, errors, setValues } =
     useFormAndValidation({
       name: "",
       avatar: "",
     });
 
+  const currentUser = useContext(CurrentUserContext);
+
   useEffect(() => {
     if (isOpen) {
-      resetForm();
+      setValues({
+        name: currentUser.name,
+        avatar: currentUser.avatar,
+      });
     }
-  }, [isOpen]);
+  }, [isOpen, currentUser, setValues]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,12 +40,12 @@ const EditProfileModal = ({ isOpen, onEditProfile, onClose }) => {
       isButtonDisabled={!isValid}
       className="modal__submit-edit-profile"
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="edit-profile-name" className="modal__label">
         Name*
         <span className="modal__error">{errors.name}</span>
         <input
           type="text"
-          id="name"
+          id="edit-profile-name"
           className="modal__input"
           name="name"
           value={values.name}
@@ -48,12 +54,12 @@ const EditProfileModal = ({ isOpen, onEditProfile, onClose }) => {
           required
         />
       </label>
-      <label htmlFor="avatar" className="modal__label">
+      <label htmlFor="edit-profile-avatar" className="modal__label">
         Avatar URL
         <span className="modal__error">{errors.avatar}</span>
         <input
           type="url"
-          id="avatar"
+          id="edit-profile-avatar"
           className="modal__input"
           name="avatar"
           value={values.avatar}
