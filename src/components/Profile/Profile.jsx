@@ -18,6 +18,7 @@ function Profile({
           handleProfileEditClick={handleProfileEditClick}
         />
       </section>
+
       <section className="profile__clothes-section">
         <ClothesSection
           handleCardClick={handleCardClick}

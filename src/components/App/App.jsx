@@ -45,7 +45,7 @@ function App() {
     email: "",
     password: "",
   });
-
+  const [isLoggedInLoading, setIsLoggedInLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem("jwt"));
 
   const navigate = useNavigate();
@@ -185,6 +185,7 @@ function App() {
 
   useEffect(() => {
     if (token) {
+      setIsLoggedInLoading(true);
       auth
         .checkTokenValidity(token)
         .then((data) => {
@@ -196,9 +197,24 @@ function App() {
           localStorage.removeItem("jwt");
           setToken(null);
           setIsLoggedIn(false);
+        })
+        .finally(() => {
+          setIsLoggedInLoading(false);
         });
+    } else {
+      setIsLoggedInLoading(false);
     }
   }, [token]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      getItems(token)
+        .then((itemsData) => {
+          setClothingItems(itemsData);
+        })
+        .catch(console.error);
+    }
+  }, [isLoggedIn, token]);
 
   useEffect(() => {
     Promise.all([getWeather(coordinates, APIkey), getItems()])
@@ -238,7 +254,10 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                    isLoggedInLoading={isLoggedInLoading}
+                  >
                     <Profile
                       handleCardClick={handleCardClick}
                       clothingItems={clothingItems}
