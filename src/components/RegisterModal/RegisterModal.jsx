@@ -18,6 +18,11 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose, onToggle }) => {
     }
   }, [isOpen]);
 
+  const handleToggle = (e) => {
+    e.preventDefault();
+    onToggle();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
@@ -90,7 +95,7 @@ const RegisterModal = ({ isOpen, handleRegistration, onClose, onToggle }) => {
           placeholder="Avatar URL"
         />
       </label>
-      <button className="register-modal__toggle" onClick={onToggle}>
+      <button className="register-modal__toggle" onClick={handleToggle}>
         {" "}
         or Log In
       </button>

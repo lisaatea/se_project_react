@@ -23,6 +23,11 @@ const LoginModal = ({ isOpen, handleLogin, onClose, onToggle }) => {
     }
   };
 
+  const handleToggle = (e) => {
+    e.preventDefault();
+    onToggle();
+  };
+
   return (
     <ModalWithForm
       title="Log in"
@@ -61,7 +66,7 @@ const LoginModal = ({ isOpen, handleLogin, onClose, onToggle }) => {
           required
         />
       </label>
-      <button className="login-modal__toggle" onClick={onToggle}>
+      <button className="login-modal__toggle" onClick={handleToggle}>
         {" "}
         or Sign Up
       </button>
