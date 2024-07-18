@@ -74,3 +74,8 @@ export const coordinates = {
 };
 
 export const APIkey = "2b50c68758d87030221d24eeeb314b63";
+
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wtwr.dockl.com"
+    : "http://localhost:3001";
