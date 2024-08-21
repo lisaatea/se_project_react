@@ -28,6 +28,7 @@ const LoginModal = ({ isOpen, handleLogin, onClose, onToggle }) => {
     onToggle();
   };
 
+
   return (
     <ModalWithForm
       title="Log in"
