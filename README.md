@@ -28,6 +28,8 @@ The development process involved multiple stages, including:
 - RESTful API integration
 - CSS
 
+## Gallery
+
 ![main page image](/src/assets/README-assets/wtwr-main-loggedout.png)
 ![profile page image](./src/assets/README-assets/wtwr-profile.png)
 ![validation image](./src/assets/README-assets/wtwr-validation.png)
@@ -38,4 +40,4 @@ The development process involved multiple stages, including:
 
 ## Webpage link
 
-[Domain name](https://wtwr.dockl.com/)
+[WTWR](https://wtwr.dockl.com/)
